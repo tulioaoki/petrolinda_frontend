@@ -6,8 +6,6 @@ import { Paper, withStyles, Typography } from '@material-ui/core';
 import AppBar from '../ScreenAppBar';
 import SideBar from '../HiddenSideBar';
 import { BEGE_CLARO, AZUL_MARINHO } from '../../utils/colors';
-import RegisterForm from '../Forms/Register';
-
 
 const styles = () => ({
   centerPaper: {
@@ -48,7 +46,7 @@ const styles = () => ({
   },
   footer: {
     display: 'flex',
-    height: '8vh',
+    height: '4vh',
     width: '100%',
     backgroundColor: '#fafafa',
     borderTopWidth: 1,
@@ -66,6 +64,7 @@ const styles = () => ({
     alignSelf: 'center',
   },
   childrenPaper: {
+    padding: 5,
     width: '100%',
     height: '100%',
     backgroundColor: '#ffffff',

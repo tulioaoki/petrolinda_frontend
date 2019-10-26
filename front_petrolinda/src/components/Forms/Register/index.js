@@ -5,7 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
+
+import { withStyles, Fab, DialogContentText } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -13,12 +14,21 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import PropTypes from 'prop-types';
 import { CustomInput } from '../../CustomInput';
 
-const styles = () => ({
+const styles = (theme) => ({
   dialog: {
     width: '40vw',
     display: 'flex',
-    justifyContent: 'space-around',
     flexDirection: 'column',
+    flexGrow: 1,
+    heigth: '80vh',
+  },
+  fab: {
+    position: 'fixed',
+    bottom: theme.spacing(3),
+    right: theme.spacing(3),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -28,21 +38,32 @@ export class RegisterDialog extends Component {
     super(props);
     this.state = {
       open: false,
-      name: '',
+      fullName: '',
       username: '',
       password: '',
       check_password: '',
-
+      cep: '',
+      state: '',
+      city: '',
+      neighborhood: '',
+      number: '',
+      street: '',
     };
   }
 
   render() {
     const {
       open,
-      name,
+      fullName,
       username,
       password,
       checkPassword,
+      cep,
+      state,
+      city,
+      neighborhood,
+      number,
+      street,
     } = this.state;
 
     const { classes } = this.props;
@@ -51,22 +72,9 @@ export class RegisterDialog extends Component {
       this.setState({ open: true });
     };
 
-    const handleChangeName = (e) => {
-      const { value } = e.target;
-      this.setState((prevState) => ({ ...prevState, name: value }));
-    };
-
-    const handleChangeUsername = (e) => {
-      const { value } = e.target;
-      this.setState((prevState) => ({ ...prevState, username: value }));
-    };
-    const handleChangePass = (e) => {
-      const { value } = e.target;
-      this.setState((prevState) => ({ ...prevState, password: value }));
-    };
-    const handleChangeCheckPass = (e) => {
-      const { value } = e.target;
-      this.setState((prevState) => ({ ...prevState, check_password: value }));
+    const handleFormChange = (e) => {
+      const { id, value } = e.target;
+      this.setState((prevState) => ({ ...prevState, [id]: value }));
     };
 
     const handleSubmit = (e) => {
@@ -80,28 +88,31 @@ export class RegisterDialog extends Component {
 
     return (
       <div>
-        <Button color="primary" style={{ padding: 10 }} onClick={handleClickOpen}>
+        <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
           <PersonAddIcon />
-        </Button>
+        </Fab>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Criar um novo usuário</DialogTitle>
           <DialogContent className={classes.dialog}>
+            <DialogContentText style={{ fontWeight: 'bolder', marginTop: 20, color: 'black' }}>
+              Geral
+            </DialogContentText>
             <CustomInput
               headerInputLabel=""
-              id="name"
+              id="fullName"
               label="Nome Completo"
               type="text"
               placeholder="Insira o nome"
-              onChange={handleChangeName}
-              value={name}
+              onChange={handleFormChange}
+              value={fullName}
             />
             <CustomInput
               headerInputLabel=""
-              id="user"
+              id="username"
               label="Usuário"
               type="text"
               placeholder="Insira o usuário"
-              onChange={handleChangeUsername}
+              onChange={handleFormChange}
               value={username}
             />
             <CustomInput
@@ -110,7 +121,7 @@ export class RegisterDialog extends Component {
               label="Senha"
               type="password"
               placeholder="Insira a senha"
-              onChange={handleChangePass}
+              onChange={handleFormChange}
               value={password}
             />
             <CustomInput
@@ -119,17 +130,75 @@ export class RegisterDialog extends Component {
               label="Confirmar senha"
               type="password"
               placeholder="Repita a senha"
-              onChange={handleChangeCheckPass}
+              onChange={handleFormChange}
               value={checkPassword}
+            />
+            <DialogContentText style={{ fontWeight: 'bolder', marginTop: 20, color: 'black' }}>
+              Endereço
+            </DialogContentText>
+            <CustomInput
+              headerInputLabel=""
+              id="cep"
+              label="CEP"
+              type="text"
+              placeholder="Insira o CEP"
+              onChange={handleFormChange}
+              value={cep}
+            />
+            <CustomInput
+              headerInputLabel=""
+              id="state"
+              label="Estado"
+              type="text"
+              placeholder="Escolha o Estado"
+              onChange={handleFormChange}
+              value={state}
+            />
+            <CustomInput
+              headerInputLabel=""
+              id="city"
+              label="Cidade"
+              type="text"
+              placeholder="Insira a cidade"
+              onChange={handleFormChange}
+              value={city}
+            />
+            <CustomInput
+              headerInputLabel=""
+              id="neighborhood"
+              label="Bairro"
+              type="text"
+              placeholder="Bairro"
+              onChange={handleFormChange}
+              value={neighborhood}
+            />
+            <CustomInput
+              headerInputLabel=""
+              id="street"
+              label="Rua"
+              type="text"
+              placeholder="Rua"
+              onChange={handleFormChange}
+              value={street}
+            />
+            <CustomInput
+              headerInputLabel=""
+              id="number"
+              label="Número"
+              type="text"
+              placeholder="Número"
+              onChange={handleFormChange}
+              value={number}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">
+            <Button onClick={handleClose} color="secondary" variant="contained">
               Cancelar
             </Button>
             <Button
               onClick={handleSubmit}
               type="submit"
+              variant="contained"
               color="primary"
             >
               Confirmar

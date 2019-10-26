@@ -9,10 +9,25 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import reducer from './reducers';
 import middleware from './middleware';
 import App from './App';
+import { AZUL_MARINHO, BABY_PINK } from './utils/colors';
 
 const store = createStore(reducer, middleware);
 
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: AZUL_MARINHO,
+      dark: '#570610',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: BABY_PINK,
+      main: '#570610',
+      dark: 'black',
+      contrastText: '#fff',
+    }
+  },
 });
 
 

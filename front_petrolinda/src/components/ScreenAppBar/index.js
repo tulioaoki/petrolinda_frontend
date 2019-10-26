@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  login: {
-    float: 'right',
-  },
   content: {
     display: 'flex',
     flex: 1,
@@ -29,24 +26,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  drawer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   containerLogo: {
     color: '#FFFFFF',
     padding: 10,
     fontWeight: 'normal',
     fontSize: 18.5,
-  },
-  containerLogout: {
-    [theme.breakpoints.down('xs')]: {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      height: 55,
-      marginRight: '1rem',
-    },
   },
 }));
 

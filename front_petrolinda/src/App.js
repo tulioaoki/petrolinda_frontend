@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Login from './pages/Login';
 import HomePage from './pages/HomePage';
+import Users from './pages/Users';
 
 class App extends PureComponent {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends PureComponent {
         <>
           <Route path="/" exact component={HomePage} />
           <Route path="/login" exact component={Login} />
+          <Route path="/usuarios" exact component={Users} />
         </>
       </div>
     );
