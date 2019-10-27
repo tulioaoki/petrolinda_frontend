@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
+import { withSnackbar, SnackbarProvider } from 'notistack';
 import './App.css';
 import Login from './pages/Login';
 import HomePage from './pages/HomePage';
@@ -32,7 +33,23 @@ const mapStateToProps = ({ PROCESS_DATA }) => ({
 });
 
 App.propTypes = {
-  // enqueueSnackbar: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+const MyApp = withSnackbar(App);
+function IntegrationNotistack() {
+  return (
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+    >
+      <MyApp />
+    </SnackbarProvider>
+  );
+}
+
+export default withRouter(connect(mapStateToProps)(IntegrationNotistack));

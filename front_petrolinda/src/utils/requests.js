@@ -19,7 +19,7 @@ export default function authenticateUserRequest({ login, pass }) {
       .then((res) => res.json())
       .catch(() => []),
   ])
-    .then(([data]) => (console.log(data) || {
+    .then(([data]) => ({
       data,
     }))
     .catch((err) => {

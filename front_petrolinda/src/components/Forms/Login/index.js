@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 
 import {
@@ -49,8 +50,17 @@ class LoginForm extends PureComponent {
     };
 
     const onClick = () => {
-      dispatch(handleLoginUser({ login, pass }));
-      // history.push('/home/');
+      dispatch(handleLoginUser({ login, pass }))
+        .then(() => {
+          const { reducerUser } = this.props;
+          if (reducerUser.token) {
+            history.push('/');
+          } else {
+            const { enqueueSnackbar } = this.props;
+            enqueueSnackbar('Credenciais inválidas.',
+              { variant: 'error', autoHideDuration: 3000 });
+          }
+        });
     };
 
     return (
@@ -83,11 +93,18 @@ class LoginForm extends PureComponent {
     );
   }
 }
-
+const mapStateToProps = ({ REDUCER_USER }) => ({
+  reducerUser: REDUCER_USER,
+});
 
 LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  reducerUser: PropTypes.object.isRequired,
+  dispatch: PropTypes.object.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect()(withStyles(styles)(LoginForm)));
+
+const LoginWithSnack = withSnackbar(LoginForm);
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(LoginWithSnack)));

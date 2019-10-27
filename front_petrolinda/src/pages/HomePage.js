@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // Material Components
 import { withStyles, Container } from '@material-ui/core';
 import RegisterForm from '../components/Forms/Register';
@@ -20,7 +22,10 @@ const styles = () => ({
 
 class HomePage extends PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, reducerUser, history } = this.props;
+    if (!reducerUser.token) {
+      history.push('login/')
+    }
 
     return (
       <MainView elevation={0} className={classes}>
@@ -32,8 +37,13 @@ class HomePage extends PureComponent {
   }
 }
 
-HomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = ({ REDUCER_USER }) => ({
+  reducerUser: REDUCER_USER,
+});
 
-export default withStyles(styles)(HomePage);
+HomePage.propTypes = {
+  reducerUser: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(HomePage)));
