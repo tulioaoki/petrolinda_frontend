@@ -36,6 +36,7 @@ class LoginForm extends PureComponent {
   }
 
   render() {
+    // style, navigation and redux props
     const { classes, history, dispatch } = this.props;
     const { pass, login } = this.state;
 
@@ -54,8 +55,10 @@ class LoginForm extends PureComponent {
         .then(() => {
           const { reducerUser } = this.props;
           if (reducerUser.token) {
+            // If logged, goes to homepage
             history.push('/');
           } else {
+            // If not logged, warning pops up
             const { enqueueSnackbar } = this.props;
             enqueueSnackbar('Credenciais inválidas.',
               { variant: 'error', autoHideDuration: 3000 });
@@ -86,7 +89,7 @@ class LoginForm extends PureComponent {
               type="password"
             />
           </div>
-          <Button onClick={onClick} variant="contained" color="primary" fullWidth={1} type="submit">Entrar</Button>
+          <Button onClick={onClick} variant="contained" color="primary" type="submit">Entrar</Button>
         </div>
       </>
 
@@ -101,7 +104,7 @@ LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   reducerUser: PropTypes.object.isRequired,
-  dispatch: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
 };
 

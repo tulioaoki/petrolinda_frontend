@@ -85,7 +85,7 @@ const mapStateToProps = ({ REDUCER_SIDE_BAR }) => ({
 });
 
 ScreenAppBar.propTypes = {
-  dispatch: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   sideBar: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };

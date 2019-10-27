@@ -24,7 +24,8 @@ class HomePage extends PureComponent {
   render() {
     const { classes, reducerUser, history } = this.props;
     if (!reducerUser.token) {
-      history.push('login/')
+      // If not logged, goes back to login screen
+      history.push('login/');
     }
 
     return (

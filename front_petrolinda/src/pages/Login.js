@@ -49,6 +49,7 @@ const styles = () => ({
 
 class Login extends PureComponent {
   render() {
+    // styles props
     const { classes } = this.props;
 
     return (
@@ -73,13 +74,11 @@ class Login extends PureComponent {
           >
             <div style={{ display: 'flex', flexDirection: 'column', paddingBottom: 50 }}>
               <Typography
-                variant="subheading"
                 className={classes.screenTitle}
               >
                 Login
               </Typography>
               <Typography
-                variant="subheading"
                 className={classes.fullW}
               >
                 Seja bem-vindo
