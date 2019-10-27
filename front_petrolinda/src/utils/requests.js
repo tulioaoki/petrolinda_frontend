@@ -2,17 +2,16 @@ const BASE_URL = 'http://localhost:3333/';
 
 export default function authenticateUserRequest({ login, pass }) {
   const body = {
-    login,
+    username: login,
     password: pass,
   };
   const hdrs = {
     method: 'POST',
-    body,
+    body: JSON.stringify(body),
     headers: new Headers({
       'content-type': 'application/json',
       Accept: 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
     }),
   };
   return Promise.all([
@@ -24,7 +23,7 @@ export default function authenticateUserRequest({ login, pass }) {
       data,
     }))
     .catch((err) => {
-      console.error(err);
+      console.error('Erro: ', err);
       return null;
     });
 }

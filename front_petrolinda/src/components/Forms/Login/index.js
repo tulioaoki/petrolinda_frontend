@@ -50,7 +50,7 @@ class LoginForm extends PureComponent {
 
     const onClick = () => {
       dispatch(handleLoginUser({ login, pass }));
-      history.push('/home/');
+      // history.push('/home/');
     };
 
     return (
