@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   Button, Input, InputLabel, withStyles,
 } from '@material-ui/core';
+import { handleLoginUser } from '../../../actions/User';
 
 const styles = () => ({
   container: {
@@ -34,7 +35,7 @@ class LoginForm extends PureComponent {
   }
 
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, dispatch } = this.props;
     const { pass, login } = this.state;
 
     const handleChangeLogin = (event) => {
@@ -48,6 +49,7 @@ class LoginForm extends PureComponent {
     };
 
     const onClick = () => {
+      dispatch(handleLoginUser({ login, pass }));
       history.push('/home/');
     };
 

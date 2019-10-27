@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { toggleBarCondensed } from '../../actions/SideBar';
 import bg from '../../static/images/barbg.jpg';
+import logo from '../../static/images/petrolindaV4.1.png';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -51,7 +52,7 @@ export class ScreenAppBar extends PureComponent {
 
     return (
       <div className={classes.grow}>
-        <AppBar position="static" style={{ backgroundColor: 'grey', backgroundImage: 'url(' + bg + ')' }}>
+        <AppBar position="static" style={{ backgroundColor: 'grey', heigth: '10vh', backgroundImage: 'url(' + bg + ')' }}>
           <div className={classes.content}>
             <Toolbar>
               <IconButton
@@ -69,7 +70,7 @@ export class ScreenAppBar extends PureComponent {
                 onClick={() => (history.push('/home/'))}
                 style={{ cursor: 'pointer' }}
               >
-                            PETROLINDA
+                <img src={logo} alt="petrolinda" style={{ maxWidth: 200 }} />
               </Typography>
             </Toolbar>
           </div>

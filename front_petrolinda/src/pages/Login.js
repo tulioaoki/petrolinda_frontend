@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 // Material Components
 import { Paper, Typography, withStyles } from '@material-ui/core';
 import LoginForm from '../components/Forms/Login';
-import gs from '../static/images/dat.jpg';
+import gs from '../static/images/gast.png';
+import logo from '../static/images/petrolindaV4.png';
 
 const styles = () => ({
   bg: {
@@ -23,16 +24,18 @@ const styles = () => ({
   },
   loginBlock: {
     backgroundColor: '#ffffff',
+    display: 'flex',
     maxHeight: 350,
     maxWidth: 420,
     height: '100%',
     width: '100%',
     borderRadius: 0,
     margin: 'auto auto auto auto',
-    padding: 40,
-    display: 'flex',
+    padding: 30,
+    marginLeft: 800,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    opacity: '0.8',
   },
   screenTitle: {
     color: '#333333',
@@ -50,6 +53,19 @@ class Login extends PureComponent {
 
     return (
       <Paper elevation={0} className={classes.bg}>
+        <img
+          alt="ajuda"
+          src={logo}
+          style={{
+            display: 'flex',
+            witdh: 200,
+            heigth: 133,
+            maxWidth: 500,
+            position: 'fixed',
+            alignSelf: 'flex-start',
+            margin: 20,
+          }}
+        />
         <Paper className={classes.loginBlock}>
           <div style={{
             display: 'flex', flexDirection: 'column', width: '30vw', alignSelf: 'center',
@@ -66,7 +82,7 @@ class Login extends PureComponent {
                 variant="subheading"
                 className={classes.fullW}
               >
-                Seja bem vindo
+                Seja bem-vindo
               </Typography>
             </div>
             <LoginForm style={{ padding: 100 }} />

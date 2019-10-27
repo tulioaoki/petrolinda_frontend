@@ -10,6 +10,7 @@ function loginUser(payload) {
 }
 
 export function handleLoginUser(payload) {
+  console.log('HAHAHAHA', payload);
   return (dispatch) => authenticateUserRequest(payload).then(({ data }) => {
     dispatch(loginUser({ payload: data }));
   });

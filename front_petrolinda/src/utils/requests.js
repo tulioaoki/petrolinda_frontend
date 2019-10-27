@@ -1,9 +1,9 @@
-const BASE_URL = 'http://localhost:8000/';
+const BASE_URL = 'http://localhost:3333/';
 
-export default function authenticateUserRequest(login, password) {
+export default function authenticateUserRequest({ login, pass }) {
   const body = {
     login,
-    password,
+    password: pass,
   };
   const hdrs = {
     method: 'POST',
@@ -11,14 +11,16 @@ export default function authenticateUserRequest(login, password) {
     headers: new Headers({
       'content-type': 'application/json',
       Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
     }),
   };
   return Promise.all([
-    fetch(`${BASE_URL}login/`, hdrs)
+    fetch(`${BASE_URL}users/login/`, hdrs)
       .then((res) => res.json())
       .catch(() => []),
   ])
-    .then(([data]) => ({
+    .then(([data]) => (console.log(data) || {
       data,
     }))
     .catch((err) => {

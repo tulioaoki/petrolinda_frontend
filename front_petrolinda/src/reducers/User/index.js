@@ -5,7 +5,7 @@ export default function REDUCER_USER(state = { token: null }, action) {
     case LOGIN_USER:
       return {
         ...state,
-        token: action.payload.data.token,
+        token: action.payload.token,
       };
     default:
       return state;
