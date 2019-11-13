@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // Material Components
 import { withStyles, Container, Typography } from '@material-ui/core';
 import RegisterForm from '../components/Forms/Register';
 import MainView from '../components/MainView';
 import TableList from '../components/Lists/RowLists';
 import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
+import { handleGetUsers } from '../actions/User';
 
 const styles = () => ({
   container: {
@@ -36,111 +39,20 @@ const styles = () => ({
   },
 });
 
-class HomePage extends PureComponent {
+class Users extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(handleGetUsers());
+  }
+
   render() {
-    const { classes } = this.props;
-    const fields = [
-      'Nome',
-      'Username',
-      'Telefone',
-      'Opções',
-    ];
-    const content = [{
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-
-    },
-    {
-      nome: 'Nome Sobrenome da Silva',
-      username: 'username',
-      telefone: '(81)99615-7088',
-
-    },
-    {
-      nome: 'Nome Sobrenome da Silva 12341',
-      username: 'username',
-      telefone: '(81)99615-7088',
-
-    },
-    ];
-
+    const { classes, fields, content } = this.props;
     return (
       <MainView elevation={0} className={classes}>
         <Container style={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
@@ -157,8 +69,27 @@ class HomePage extends PureComponent {
   }
 }
 
-HomePage.propTypes = {
+Users.propTypes = {
   classes: PropTypes.object.isRequired,
+  content: PropTypes.object,
+  fields: PropTypes.object,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(HomePage);
+Users.defaultProps = {
+  content: [],
+  fields: [
+    'Nome',
+    'Username',
+    'CPF',
+    'Posto',
+    'Opções',
+  ],
+};
+
+const mapStateToProps = ({ REDUCER_USER }) => ({
+  reducerUser: REDUCER_USER,
+  content: REDUCER_USER.content,
+});
+
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Users)));
