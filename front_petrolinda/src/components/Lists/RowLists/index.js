@@ -21,7 +21,7 @@ const styles = (theme) => ({
     maxHeight: '100%',
     marginLeft: 10,
     marginTop: 6,
-    'overflow-y': 'hidden',
+    'overflowY': 'hidden',
   },
   paper: {
     padding: theme.spacing(1),
@@ -101,9 +101,13 @@ const mapStateToProps = ({ PROCESS_DATA }) => ({
 
 TableList.propTypes = {
   classes: PropTypes.object.isRequired,
-  headerFields: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired,
-  showOption: PropTypes.object.isRequired,
+  headerFields: PropTypes.array.isRequired,
+  content: PropTypes.array.isRequired,
+  showOption: PropTypes.bool,
 };
+
+TableList.defaultProps = {
+  showOption: false,
+}
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(TableList)));

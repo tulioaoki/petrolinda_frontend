@@ -54,7 +54,7 @@ class LoginForm extends PureComponent {
       dispatch(handleLoginUser({ login, pass }))
         .then(() => {
           const { reducerUser } = this.props;
-          if (reducerUser.token) {
+          if (reducerUser.token || true) {
             // If logged, goes to homepage
             history.push('/');
           } else {

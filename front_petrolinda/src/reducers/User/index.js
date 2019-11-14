@@ -1,6 +1,6 @@
 import { LOGIN_USER, REGISTER_USER, GET_USERS } from '../../actions/User';
 
-export default function REDUCER_USER(state = { token: null }, action) {
+export default function REDUCER_USER(state = { token: null, content: [] }, action) {
   switch (action.type) {
     case LOGIN_USER:
       return {
@@ -12,9 +12,15 @@ export default function REDUCER_USER(state = { token: null }, action) {
         ...state,
       };
     case GET_USERS:
+      let arr;
+      if(action.payload){
+        arr = []
+      }else{
+        arr = action.payload;
+      }
       return {
         ...state,
-        content: action.payload,
+        content: arr,
       };
     default:
       return state;

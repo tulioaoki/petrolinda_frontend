@@ -34,7 +34,7 @@ class TableHeader extends PureComponent {
 }
 
 TableHeader.propTypes = {
-  headerFields: PropTypes.object.isRequired,
+  headerFields: PropTypes.array.isRequired,
 };
 
 export default withRouter(connect()(withStyles()(TableHeader)));

@@ -29,7 +29,7 @@ const styles = () => ({
     height: '100%',
     width: '100%',
     'min-height': '100%',
-    'overflow-y': 'hidden',
+    'overflowY': 'hidden',
   },
   mainRowDiv: {
     display: 'flex',

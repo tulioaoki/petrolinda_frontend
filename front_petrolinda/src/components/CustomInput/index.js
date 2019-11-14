@@ -48,16 +48,17 @@ export class CustomInput extends Component {
 }
 
 CustomInput.propTypes = {
-  placeholder: PropTypes.object,
-  value: PropTypes.object.isRequired,
-  label: PropTypes.object.isRequired,
-  type: PropTypes.object,
-  id: PropTypes.object.isRequired,
-  headerInputLabel: PropTypes.object.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  headerInputLabel: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 CustomInput.defaultProps = {
+  value: '',
   type: 'text',
   placeholder: '',
 };

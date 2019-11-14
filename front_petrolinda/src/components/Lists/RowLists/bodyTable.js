@@ -14,7 +14,7 @@ class TableBodyRow extends PureComponent {
   render() {
     const { content, page, rowsPerPage } = this.props;
     return (
-      <TableBody style={{ 'overflow-y': 'scroll' }}>
+      <TableBody style={{ 'overflowY': 'scroll' }}>
         {
           content.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <TableRow hover role="checkbox" tabIndex={-1} key="x">
@@ -47,9 +47,12 @@ class TableBodyRow extends PureComponent {
 
 
 TableBodyRow.propTypes = {
-  content: PropTypes.object.isRequired,
-  rowsPerPage: PropTypes.object.isRequired,
-  page: PropTypes.object.isRequired,
+  content: PropTypes.array.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
 };
 
+TableBodyRow.defaultProps = {
+  content: [],
+};
 export default withRouter(connect()(withStyles()(TableBodyRow)));

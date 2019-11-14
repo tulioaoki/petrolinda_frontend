@@ -93,13 +93,14 @@ const mapStateToProps = ({ REDUCER_SIDE_BAR, dispatch }) => ({
 });
 
 HiddenSideBar.propTypes = {
-  condensed: PropTypes.object.isRequired,
+  condensed: PropTypes.bool,
   sideBar: PropTypes.object,
   history: PropTypes.object.isRequired,
 };
 
 HiddenSideBar.defaultProps = {
   sideBar: false,
+  condensed: false,
 };
 
 export default withRouter(connect(mapStateToProps)(HiddenSideBar));

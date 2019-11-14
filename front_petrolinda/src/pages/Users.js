@@ -71,8 +71,8 @@ class Users extends PureComponent {
 
 Users.propTypes = {
   classes: PropTypes.object.isRequired,
-  content: PropTypes.object,
-  fields: PropTypes.object,
+  content: PropTypes.array,
+  fields: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
 };
 
