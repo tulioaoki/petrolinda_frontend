@@ -8,9 +8,6 @@ import RegisterForm from '../components/Forms/Register';
 import MainView from '../components/MainView';
 import TableList from '../components/Lists/RowLists';
 import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
-import { handleGetUsers } from '../actions/User';
-import { handleGetStations } from '../actions/Stations';
-import { handleGetBandeiras } from '../actions/Bandeiras';
 
 const styles = () => ({
   container: {
@@ -41,7 +38,7 @@ const styles = () => ({
   },
 });
 
-class Users extends PureComponent {
+class Abastecimentos extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,10 +46,8 @@ class Users extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(handleGetUsers());
-    dispatch(handleGetStations());
-    dispatch(handleGetBandeiras());
+    // const { dispatch } = this.props;
+    // dispatch(handleGetAbastecimentos());
   }
 
   render() {
@@ -61,7 +56,7 @@ class Users extends PureComponent {
       <MainView elevation={0} className={classes}>
         <Container style={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
           <Typography className={classes.title}>
-            Usuários
+            Abastecimentos
           </Typography>
         </Container>
         <Container style={{ margin: 10, padding: 0 }}>
@@ -73,26 +68,26 @@ class Users extends PureComponent {
   }
 }
 
-Users.propTypes = {
+Abastecimentos.propTypes = {
   classes: PropTypes.object.isRequired,
   content: PropTypes.array,
   fields: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
 };
 
-Users.defaultProps = {
+Abastecimentos.defaultProps = {
   content: [],
   fields: [
-    'Username',
-    'Nome',
-    'Posto',
-    'Opções',
+    'Tanque',
+    'Valor/Litro',
+    'Litros',
+    'Valor total',
+    'Data',
   ],
 };
 
-const mapStateToProps = ({ REDUCER_USER }) => ({
-  reducerUser: REDUCER_USER,
-  content: REDUCER_USER.content,
+const mapStateToProps = ({ REDUCER_ABASTECIMENTOS }) => ({
+  // abastecimentos: REDUCER_ABASTECIMENTOS.content,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Users)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Abastecimentos)));

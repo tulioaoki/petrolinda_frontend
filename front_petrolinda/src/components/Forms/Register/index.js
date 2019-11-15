@@ -6,13 +6,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 
-import { withStyles, Fab, DialogContentText } from '@material-ui/core';
+import {
+  withStyles, Fab, DialogContentText, Select, MenuItem, InputLabel,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import { withSnackbar } from 'notistack';
 // import PropTypes from 'prop-types';
+import { withSnackbar } from 'notistack';
 import { CustomInput } from '../../CustomInput';
+import { handleRegisterUser } from '../../../actions/User';
 
 const styles = (theme) => ({
   dialog: {
@@ -30,6 +34,9 @@ const styles = (theme) => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  diffPasswords: {
+    backgroundColor: 'red',
+  },
 });
 
 
@@ -41,13 +48,8 @@ export class RegisterDialog extends Component {
       fullName: '',
       username: '',
       password: '',
-      check_password: '',
-      cep: '',
-      state: '',
-      city: '',
-      neighborhood: '',
-      number: '',
-      street: '',
+      checkPassword: '',
+      stationId: '',
     };
   }
 
@@ -58,15 +60,12 @@ export class RegisterDialog extends Component {
       username,
       password,
       checkPassword,
-      cep,
-      state,
-      city,
-      neighborhood,
-      number,
-      street,
+      stationId,
     } = this.state;
 
-    const { classes } = this.props;
+    const {
+      classes, stations, dispatch, enqueueSnackbar,
+    } = this.props;
 
     const handleClickOpen = () => {
       this.setState({ open: true });
@@ -76,10 +75,26 @@ export class RegisterDialog extends Component {
       const { id, value } = e.target;
       this.setState((prevState) => ({ ...prevState, [id]: value }));
     };
-
+    const handleSelectChange = (e) => {
+      const { value } = e.target;
+      this.setState((prevState) => ({ ...prevState, stationId: value }));
+    };
     const handleSubmit = (e) => {
       e.preventDefault();
-      this.setState({ open: false });
+      dispatch(handleRegisterUser({
+        fullName, username, password, stationId,
+      })).then((data) => {
+        if (data.payload.token) {
+          enqueueSnackbar('Cadastro realizado com Sucesso.',
+            { variant: 'success', autoHideDuration: 3000 });
+        } else {
+          enqueueSnackbar('Houve um erro no servidor.',
+            { variant: 'error', autoHideDuration: 3000 });
+        }
+      });
+      this.setState({
+        open: false, fullName: '', password: '', checkPassword: '', stationId: '',
+      });
     };
 
     const handleClose = () => {
@@ -126,70 +141,36 @@ export class RegisterDialog extends Component {
             />
             <CustomInput
               headerInputLabel=""
-              id="checkPass"
+              id="checkPassword"
               label="Confirmar senha"
               type="password"
               placeholder="Repita a senha"
+              error={checkPassword !== password && password.length <= checkPassword.length}
+              helperText="Senhas não combinam"
               onChange={handleFormChange}
               value={checkPassword}
             />
             <DialogContentText style={{ fontWeight: 'bolder', marginTop: 20, color: 'black' }}>
-              Endereço
+              Selecione o Posto
             </DialogContentText>
-            <CustomInput
-              headerInputLabel=""
-              id="cep"
-              label="CEP"
-              type="text"
-              placeholder="Insira o CEP"
-              onChange={handleFormChange}
-              value={cep}
-            />
-            <CustomInput
-              headerInputLabel=""
-              id="state"
-              label="Estado"
-              type="text"
-              placeholder="Escolha o Estado"
-              onChange={handleFormChange}
-              value={state}
-            />
-            <CustomInput
-              headerInputLabel=""
-              id="city"
-              label="Cidade"
-              type="text"
-              placeholder="Insira a cidade"
-              onChange={handleFormChange}
-              value={city}
-            />
-            <CustomInput
-              headerInputLabel=""
-              id="neighborhood"
-              label="Bairro"
-              type="text"
-              placeholder="Bairro"
-              onChange={handleFormChange}
-              value={neighborhood}
-            />
-            <CustomInput
-              headerInputLabel=""
-              id="street"
-              label="Rua"
-              type="text"
-              placeholder="Rua"
-              onChange={handleFormChange}
-              value={street}
-            />
-            <CustomInput
-              headerInputLabel=""
-              id="number"
-              label="Número"
-              type="text"
-              placeholder="Número"
-              onChange={handleFormChange}
-              value={number}
-            />
+            <InputLabel htmlFor="age-native-simple">Posto</InputLabel>
+            <Select
+              label="Posto"
+              labelId="station-select"
+              id="stationId"
+              value={stationId}
+              onChange={handleSelectChange}
+              placeholder="Posto"
+              styles={{ margin: 8 }}
+            >
+              {stations.sort((a, b) => {
+                if (a.nome_fantasia > b.nome_fantasia) return 1;
+                if (a.nome_fantasia < b.nome_fantasia) return -1;
+                return 0;
+              }).map((item) => (
+                <MenuItem value={item.id}>{item.nome_fantasia}</MenuItem>
+              ))}
+            </Select>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary" variant="contained">
@@ -200,6 +181,7 @@ export class RegisterDialog extends Component {
               type="submit"
               variant="contained"
               color="primary"
+              disabled={stationId === '' || fullName === '' || password === '' || checkPassword !== password}
             >
               Confirmar
             </Button>
@@ -210,9 +192,20 @@ export class RegisterDialog extends Component {
   }
 }
 
+const mapStateToProps = ({ REDUCER_STATIONS }) => ({
+  stations: REDUCER_STATIONS.stations,
+});
 
 RegisterDialog.propTypes = {
   classes: PropTypes.object.isRequired,
+  dispatch: PropTypes.object.isRequired,
+  stations: PropTypes.array,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect()(withStyles(styles)(RegisterDialog)));
+RegisterDialog.defaultProps = {
+  stations: [],
+};
+
+const RegisterDialogWithSnack = withSnackbar(RegisterDialog);
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(RegisterDialogWithSnack)));

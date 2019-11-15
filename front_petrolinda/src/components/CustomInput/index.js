@@ -21,6 +21,8 @@ export class CustomInput extends Component {
       id,
       headerInputLabel,
       onChange,
+      error,
+      helperText,
     } = this.props;
 
     return (
@@ -37,6 +39,8 @@ export class CustomInput extends Component {
           label={label}
           type={type}
           fullWidth
+          error={error}
+          helperText={error ? helperText : ''}
           placeholder={placeholder}
           className="formField"
           onChange={onChange}
@@ -55,12 +59,16 @@ CustomInput.propTypes = {
   id: PropTypes.string.isRequired,
   headerInputLabel: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
 };
 
 CustomInput.defaultProps = {
   value: '',
   type: 'text',
   placeholder: '',
+  error: false,
+  helperText: '',
 };
 
 const mapStateToProps = (props) => ({

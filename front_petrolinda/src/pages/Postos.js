@@ -7,10 +7,8 @@ import { withStyles, Container, Typography } from '@material-ui/core';
 import RegisterForm from '../components/Forms/Register';
 import MainView from '../components/MainView';
 import TableList from '../components/Lists/RowLists';
-import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
-import { handleGetUsers } from '../actions/User';
 import { handleGetStations } from '../actions/Stations';
-import { handleGetBandeiras } from '../actions/Bandeiras';
+import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
 
 const styles = () => ({
   container: {
@@ -41,7 +39,7 @@ const styles = () => ({
   },
 });
 
-class Users extends PureComponent {
+class Postos extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,9 +48,7 @@ class Users extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(handleGetUsers());
     dispatch(handleGetStations());
-    dispatch(handleGetBandeiras());
   }
 
   render() {
@@ -61,11 +57,11 @@ class Users extends PureComponent {
       <MainView elevation={0} className={classes}>
         <Container style={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
           <Typography className={classes.title}>
-            Usuários
+            Postos
           </Typography>
         </Container>
         <Container style={{ margin: 10, padding: 0 }}>
-          <TableList headerFields={fields} content={content} />
+          <TableList headerFields={fields} content={content} type="stations" fieldsOrder={['nome_fantasia', 'razao_social']} />
         </Container>
         <RegisterForm />
       </MainView>
@@ -73,26 +69,24 @@ class Users extends PureComponent {
   }
 }
 
-Users.propTypes = {
+Postos.propTypes = {
   classes: PropTypes.object.isRequired,
   content: PropTypes.array,
   fields: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
 };
 
-Users.defaultProps = {
+Postos.defaultProps = {
   content: [],
   fields: [
-    'Username',
-    'Nome',
-    'Posto',
+    'Nome Fantasia',
+    'Razão Social',
     'Opções',
   ],
 };
 
-const mapStateToProps = ({ REDUCER_USER }) => ({
-  reducerUser: REDUCER_USER,
-  content: REDUCER_USER.content,
+const mapStateToProps = ({ REDUCER_STATIONS }) => ({
+  content: REDUCER_STATIONS.stations,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Users)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Postos)));

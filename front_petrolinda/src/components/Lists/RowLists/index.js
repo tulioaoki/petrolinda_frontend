@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { PRIMARY_COLOR, BEGE_CLARO } from '../../../utils/colors';
 import TableHeader from './Header';
 import TableBodyRow from './bodyTable';
+import StationsTableBodyRow from './StationsBodyTable';
 
 const styles = (theme) => ({
   root: {
@@ -21,7 +22,7 @@ const styles = (theme) => ({
     maxHeight: '100%',
     marginLeft: 10,
     marginTop: 6,
-    'overflowY': 'hidden',
+    overflowY: 'hidden',
   },
   paper: {
     padding: theme.spacing(1),
@@ -59,6 +60,8 @@ class TableList extends PureComponent {
       headerFields,
       content,
       showOption,
+      fieldsOrder,
+      type,
     } = this.props;
     const { page, rpp } = this.state;
     const handleChangePage = (event, newPage) => {
@@ -67,12 +70,22 @@ class TableList extends PureComponent {
     const handleChangeRowsPerPage = (event) => {
       this.setState((prevState) => ({ ...prevState, rpp: event.target.value }));
     };
+    let TableRow = TableBodyRow;
+    if (type === 'stations') {
+      TableRow = StationsTableBodyRow;
+    }
     return (
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
           <Table size="small" stickyHeader aria-label="sticky table">
             <TableHeader headerFields={headerFields} showOptio={showOption} />
-            <TableBodyRow page={page} rowsPerPage={rpp} content={content} showOptio={showOption} />
+            <TableRow
+              page={page}
+              rowsPerPage={rpp}
+              content={content}
+              showOption={showOption}
+              fieldsOrder={fieldsOrder}
+            />
           </Table>
         </div>
         <TablePagination
@@ -95,19 +108,19 @@ class TableList extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ PROCESS_DATA }) => ({
-  process_data: PROCESS_DATA,
-});
-
 TableList.propTypes = {
   classes: PropTypes.object.isRequired,
   headerFields: PropTypes.array.isRequired,
   content: PropTypes.array.isRequired,
   showOption: PropTypes.bool,
+  fieldsOrder: PropTypes.array,
+  type: PropTypes.string,
 };
 
 TableList.defaultProps = {
   showOption: false,
-}
+  fieldsOrder: [],
+  type: 'users',
+};
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(TableList)));
+export default withRouter(connect()(withStyles(styles)(TableList)));

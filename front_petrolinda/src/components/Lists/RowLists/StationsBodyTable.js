@@ -10,28 +10,26 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditUserWithSnack from '../../Forms/User';
 
-class TableBodyRow extends PureComponent {
+class StationsTableBodyRow extends PureComponent {
   render() {
     const {
-      content, page, rowsPerPage, stations,
+      content, page, rowsPerPage, fieldsOrder,
     } = this.props;
     return (
       <TableBody style={{ overflowY: 'scroll' }}>
         {
           content.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <TableRow hover role="checkbox" tabIndex={-1} key="x">
-              {Object.keys(item).map(
-                (key) => (
-                  <TableCell
-                    key={item[key]}
-                    align="center"
-                    style={{ minWidth: 10 }}
-                  >
-                    {key === 'posto_id' && stations.length > 0 ? stations.find((obj) => obj.id === item[key]).nome_fantasia : item[key]}
-                  </TableCell>
-                ),
-              )}
-              <TableCell key="b" align="center">
+              { fieldsOrder.map((key) => (
+                <TableCell
+                  key={item.id}
+                  align="center"
+                  style={{ minWidth: 10 }}
+                >
+                  {item[key]}
+                </TableCell>
+              ))}
+              <TableCell key={item.id} align="center">
                 <Button>
                   <EditUserWithSnack id={item.login} />
                 </Button>
@@ -51,17 +49,15 @@ const mapStateToProps = ({ REDUCER_STATIONS }) => ({
   stations: REDUCER_STATIONS.stations,
 });
 
-TableBodyRow.propTypes = {
+StationsTableBodyRow.propTypes = {
   content: PropTypes.array,
   rowsPerPage: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
-  stations: PropTypes.array,
-  // fieldsOrder: PropTypes.array,
+  fieldsOrder: PropTypes.array,
 };
 
-TableBodyRow.defaultProps = {
+StationsTableBodyRow.defaultProps = {
   content: [],
-  stations: [],
-  // fieldsOrder: [],
+  fieldsOrder: [],
 };
-export default withRouter(connect(mapStateToProps)(withStyles()(TableBodyRow)));
+export default withRouter(connect(mapStateToProps)(withStyles()(StationsTableBodyRow)));

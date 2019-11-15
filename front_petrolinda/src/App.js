@@ -7,6 +7,8 @@ import './App.css';
 import Login from './pages/Login';
 import HomePage from './pages/HomePage';
 import Users from './pages/Users';
+import Abastecimentos from './pages/Abastecimentos';
+import Postos from './pages/Postos';
 
 class App extends PureComponent {
   constructor(props) {
@@ -15,21 +17,21 @@ class App extends PureComponent {
   }
 
   render() {
-    // const path_name = this.props.location.pathname
     return (
       <div style={{ width: '100%', height: '100%', minHeight: '100%' }}>
         <>
           <Route path="/" exact component={HomePage} />
           <Route path="/login" exact component={Login} />
           <Route path="/usuarios" exact component={Users} />
+          <Route path="/abastecimentos" exact component={Abastecimentos} />
+          <Route path="/postos" exact component={Postos} />
         </>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ PROCESS_DATA }) => ({
-  process_data: PROCESS_DATA,
+const mapStateToProps = () => ({
 });
 
 App.propTypes = {
