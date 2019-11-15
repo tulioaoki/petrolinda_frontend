@@ -11,6 +11,7 @@ import { PRIMARY_COLOR, BEGE_CLARO } from '../../../utils/colors';
 import TableHeader from './Header';
 import TableBodyRow from './bodyTable';
 import StationsTableBodyRow from './StationsBodyTable';
+import AbastecimentosTableBodyRow from './AbastecimentosBodyTable';
 
 const styles = (theme) => ({
   root: {
@@ -73,6 +74,8 @@ class TableList extends PureComponent {
     let TableRow = TableBodyRow;
     if (type === 'stations') {
       TableRow = StationsTableBodyRow;
+    } else if (type === 'abastecimentos') {
+      TableRow = AbastecimentosTableBodyRow;
     }
     return (
       <Paper className={classes.root}>

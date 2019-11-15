@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // Material Components
 import { withStyles, Container, Typography } from '@material-ui/core';
-import StationDialogWithSnack from '../components/Forms/Postos';
 import MainView from '../components/MainView';
-import TableList from '../components/Lists/RowLists';
-import { handleGetStations } from '../actions/Stations';
 import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
-import { handleGetBandeiras } from '../actions/Bandeiras';
 
 const styles = () => ({
   container: {
@@ -40,55 +36,38 @@ const styles = () => ({
   },
 });
 
-class Postos extends PureComponent {
+class Configuracoes extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(handleGetStations());
-    dispatch(handleGetBandeiras());
-  }
-
   render() {
-    const { classes, fields, content } = this.props;
+    const { classes } = this.props;
     return (
       <MainView elevation={0} className={classes}>
         <Container style={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
           <Typography className={classes.title}>
-            Postos
+            Configuracoes
           </Typography>
         </Container>
-        <Container style={{ margin: 10, padding: 0 }}>
-          <TableList headerFields={fields} content={content} type="stations" fieldsOrder={['nome_fantasia', 'razao_social']} />
-        </Container>
-        <StationDialogWithSnack />
+        <Typography className={classes.title}>
+            Esta é uma feature paga.
+            Contate os desenvolvedores e
+            dê-lhes um salário para desbloquear as opções de administrador.
+        </Typography>
       </MainView>
     );
   }
 }
 
-Postos.propTypes = {
+Configuracoes.propTypes = {
   classes: PropTypes.object.isRequired,
-  content: PropTypes.array,
-  fields: PropTypes.array,
-  dispatch: PropTypes.func.isRequired,
-};
-
-Postos.defaultProps = {
-  content: [],
-  fields: [
-    'Id',
-    'Nome Fantasia',
-    'Razão Social',
-  ],
 };
 
 const mapStateToProps = ({ REDUCER_STATIONS }) => ({
   content: REDUCER_STATIONS.stations,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Postos)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Configuracoes)));

@@ -33,7 +33,7 @@ class TableBodyRow extends PureComponent {
               )}
               <TableCell key="b" align="center">
                 <Button>
-                  <EditUserWithSnack id={item.lodin} />
+                  <EditUserWithSnack id={item.login} />
                 </Button>
                 <Button>
                   <DeleteIcon />

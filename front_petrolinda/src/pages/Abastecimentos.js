@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // Material Components
 import { withStyles, Container, Typography } from '@material-ui/core';
-import RegisterForm from '../components/Forms/Register';
+import AbastecimentoForm from '../components/Forms/Abastecimentos';
 import MainView from '../components/MainView';
 import TableList from '../components/Lists/RowLists';
 import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
+import { handleGetAbastecimentos } from '../actions/Abastecimentos';
+import { handleGetStations } from '../actions/Stations';
 
 const styles = () => ({
   container: {
@@ -46,8 +48,9 @@ class Abastecimentos extends PureComponent {
   }
 
   componentDidMount() {
-    // const { dispatch } = this.props;
-    // dispatch(handleGetAbastecimentos());
+    const { dispatch } = this.props;
+    dispatch(handleGetAbastecimentos());
+    dispatch(handleGetStations());
   }
 
   render() {
@@ -60,9 +63,9 @@ class Abastecimentos extends PureComponent {
           </Typography>
         </Container>
         <Container style={{ margin: 10, padding: 0 }}>
-          <TableList headerFields={fields} content={content} />
+          <TableList headerFields={fields} content={content} type="abastecimentos" />
         </Container>
-        <RegisterForm />
+        <AbastecimentoForm />
       </MainView>
     );
   }
@@ -78,7 +81,7 @@ Abastecimentos.propTypes = {
 Abastecimentos.defaultProps = {
   content: [],
   fields: [
-    'Tanque',
+    'Id',
     'Valor/Litro',
     'Litros',
     'Valor total',
@@ -87,7 +90,7 @@ Abastecimentos.defaultProps = {
 };
 
 const mapStateToProps = ({ REDUCER_ABASTECIMENTOS }) => ({
-  // abastecimentos: REDUCER_ABASTECIMENTOS.content,
+  content: REDUCER_ABASTECIMENTOS.abastecimentos,
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Abastecimentos)));

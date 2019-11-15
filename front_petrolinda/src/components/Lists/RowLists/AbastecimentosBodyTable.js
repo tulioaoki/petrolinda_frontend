@@ -8,7 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-class StationsTableBodyRow extends PureComponent {
+class AbastecimentosTableBodyRow extends PureComponent {
   render() {
     const {
       content, page, rowsPerPage,
@@ -17,8 +17,8 @@ class StationsTableBodyRow extends PureComponent {
       <TableBody style={{ overflowY: 'scroll' }}>
         {
           content.sort((a, b) => {
-            if (a.id < b.id) return 1;
-            if (a.id > b.id) return -1;
+            if (a.data_de_abastecimento < b.data_de_abastecimento) return 1;
+            if (a.data_de_abastecimento > b.data_de_abastecimento) return -1;
             return 0;
           }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <TableRow hover key={item.id}>
@@ -26,19 +26,32 @@ class StationsTableBodyRow extends PureComponent {
                 align="center"
                 style={{ minWidth: 10 }}
               >
-                {item.id}
+                {item.abastecimentos_id}
               </TableCell>
               <TableCell
                 align="center"
                 style={{ minWidth: 10 }}
               >
-                {item.nome_fantasia}
+                {item.preco_por_litro}
               </TableCell>
               <TableCell
                 align="center"
                 style={{ minWidth: 10 }}
               >
-                {item.razao_social}
+                {item.litros_abastecidos}
+              </TableCell>
+              <TableCell
+                align="center"
+                style={{ minWidth: 10 }}
+              >
+                {item.preco_pago}
+              </TableCell>
+              <TableCell
+                align="center"
+                style={{ minWidth: 10 }}
+                type="date"
+              >
+                {new Date(item.data_de_abastecimento).toLocaleDateString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
               </TableCell>
             </TableRow>
           ))
@@ -52,15 +65,15 @@ const mapStateToProps = ({ REDUCER_STATIONS }) => ({
   stations: REDUCER_STATIONS.stations,
 });
 
-StationsTableBodyRow.propTypes = {
+AbastecimentosTableBodyRow.propTypes = {
   content: PropTypes.array,
   rowsPerPage: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   // fieldsOrder: PropTypes.array,
 };
 
-StationsTableBodyRow.defaultProps = {
+AbastecimentosTableBodyRow.defaultProps = {
   content: [],
   // fieldsOrder: [],
 };
-export default withRouter(connect(mapStateToProps)(withStyles()(StationsTableBodyRow)));
+export default withRouter(connect(mapStateToProps)(withStyles()(AbastecimentosTableBodyRow)));

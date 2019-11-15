@@ -31,7 +31,6 @@ class HomePage extends PureComponent {
     return (
       <MainView elevation={0} className={classes}>
         <Container classeName={classes.container}>
-          <RegisterForm />
         </Container>
       </MainView>
     );
