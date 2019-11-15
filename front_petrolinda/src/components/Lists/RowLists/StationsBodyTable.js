@@ -18,17 +18,26 @@ class StationsTableBodyRow extends PureComponent {
     return (
       <TableBody style={{ overflowY: 'scroll' }}>
         {
-          content.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
-            <TableRow hover role="checkbox" tabIndex={-1} key="x">
-              { fieldsOrder.map((key) => (
-                <TableCell
-                  key={item.id}
-                  align="center"
-                  style={{ minWidth: 10 }}
-                >
-                  {item[key]}
-                </TableCell>
-              ))}
+          content.sort((a, b) => {
+            if (a.id < b.id) return -1;
+            if (a.id > b.id) return 1;
+            return 0;
+          }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
+            <TableRow hover key={item.id}>
+              <TableCell
+                key={item.id}
+                align="center"
+                style={{ minWidth: 10 }}
+              >
+                {item.nome_fantasia}
+              </TableCell>
+              <TableCell
+                key={item.id}
+                align="center"
+                style={{ minWidth: 10 }}
+              >
+                {item.razao_social}
+              </TableCell>
               <TableCell key={item.id} align="center">
                 <Button>
                   <EditUserWithSnack id={item.login} />

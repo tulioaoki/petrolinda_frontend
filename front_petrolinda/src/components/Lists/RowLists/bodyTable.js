@@ -33,7 +33,7 @@ class TableBodyRow extends PureComponent {
               )}
               <TableCell key="b" align="center">
                 <Button>
-                  <EditUserWithSnack id={item.login} />
+                  <EditUserWithSnack id={item.lodin} />
                 </Button>
                 <Button>
                   <DeleteIcon />
@@ -56,12 +56,10 @@ TableBodyRow.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   stations: PropTypes.array,
-  // fieldsOrder: PropTypes.array,
 };
 
 TableBodyRow.defaultProps = {
   content: [],
   stations: [],
-  // fieldsOrder: [],
 };
 export default withRouter(connect(mapStateToProps)(withStyles()(TableBodyRow)));
