@@ -135,13 +135,13 @@ export class RegisterStationDialog extends Component {
         rua,
         numero,
       })).then((data) => {
-        if (data.payload) {
+        console.log(data);
+        if (data.data.message === 'posto criado') {
           enqueueSnackbar('Posto regristrado com Sucesso.',
             { variant: 'success', autoHideDuration: 3000 });
         } else {
           enqueueSnackbar('Houve um erro no servidor.',
-            { variant: 'error', autoHideDuration: 3000 }).then();
-          window.location.reload();
+            { variant: 'error', autoHideDuration: 3000 });
         }
       });
       this.setState({

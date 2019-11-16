@@ -12,7 +12,7 @@ function registerStations(payload) {
 
 export function handleRegisterStation(payload) {
   return (dispatch) => registerStationRequest(payload)
-    .then(() => dispatch(registerStations(payload)));
+    .then((data) => { dispatch(registerStations(payload)); return data; });
 }
 
 

@@ -147,6 +147,12 @@ export function registerStationRequest({
   latitude,
   longitude,
   bandeira,
+  cep,
+  estado,
+  cidade,
+  bairro,
+  rua,
+  numero,
 }) {
   const cleanedLatitude = latitude.toString().slice(0, 11);
   const cleanedLongitude = longitude.toString().slice(0, 11);
@@ -158,6 +164,12 @@ export function registerStationRequest({
     longitude: cleanedLongitude,
     bandeira_id: bandeira,
     endereco_id: 1,
+    cep,
+    estado,
+    cidade,
+    bairro,
+    rua,
+    numero,
   };
   const hdrs = {
     method: 'POST',
