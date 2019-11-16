@@ -86,6 +86,11 @@ export function getUsersRequest() {
     });
 }
 
+export function deleteUserRequest() {
+  return Promise.all([])
+    .then(() => (true));
+}
+
 export function editUserRequest({ name, id }) {
   const body = {
     name,

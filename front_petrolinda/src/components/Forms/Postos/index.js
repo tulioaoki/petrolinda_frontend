@@ -271,7 +271,7 @@ export class RegisterStationDialog extends Component {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={nomeFantasia === '' || razaoSocial === '' || bandeira === ''}
+              disabled={nomeFantasia === '' || razaoSocial === '' || bandeira === '' || cep === ''}
             >
               Confirmar
             </Button>

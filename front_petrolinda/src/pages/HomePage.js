@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // Material Components
-import { withStyles, Container } from '@material-ui/core';
-import RegisterForm from '../components/Forms/Register';
+import { withStyles, Container, Typography } from '@material-ui/core';
 import MainView from '../components/MainView';
+import { AZUL_MARINHO, BEGE_CLARO } from '../utils/colors';
 
 const styles = () => ({
   container: {
@@ -18,19 +18,37 @@ const styles = () => ({
     minHeigth: '100vh',
     padding: 3,
   },
+  title: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexGrow: 1,
+    fontSize: '1.2em',
+    fontWeight: 'bolder',
+    margin: 0,
+    width: '97.4%',
+    padding: 14,
+    backgroundColor: 'white',
+    borderRadius: 3,
+    color: AZUL_MARINHO,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    borderBottomColor: BEGE_CLARO,
+  },
 });
 
 class HomePage extends PureComponent {
   render() {
-    const { classes, reducerUser, history } = this.props;
+    const { classes, reducerUser } = this.props;
     if (!reducerUser.token) {
       // If not logged, goes back to login screen
-      //history.push('login/');
     }
 
     return (
       <MainView elevation={0} className={classes}>
         <Container classeName={classes.container}>
+          <Typography className={classes.title}>
+            Informações Gerais
+          </Typography>
         </Container>
       </MainView>
     );
@@ -44,6 +62,5 @@ const mapStateToProps = ({ REDUCER_USER }) => ({
 HomePage.propTypes = {
   reducerUser: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
 };
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(HomePage)));
