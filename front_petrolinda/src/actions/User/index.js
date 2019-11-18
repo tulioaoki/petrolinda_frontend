@@ -1,5 +1,5 @@
 import authenticateUserRequest, {
-  registerUserRequest, getUsersRequest, editUserRequest, deleteUserRequest,
+  registerUserRequest, getUsersRequest, editUserRequest,
 } from '../../utils/requests';
 
 export const LOGIN_USER = 'LOGIN_USER';

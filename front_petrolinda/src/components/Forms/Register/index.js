@@ -198,7 +198,7 @@ const mapStateToProps = ({ REDUCER_STATIONS }) => ({
 
 RegisterDialog.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.object.isRequired,
+   dispatch: PropTypes.func.isRequired,
   stations: PropTypes.array,
   enqueueSnackbar: PropTypes.func.isRequired,
 };

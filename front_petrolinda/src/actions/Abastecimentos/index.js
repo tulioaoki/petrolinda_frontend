@@ -12,7 +12,10 @@ function registerAbastecimentos(payload) {
 
 export function handleRegisterAbastecimento(payload) {
   return (dispatch) => registerAbastecimentoRequest(payload)
-    .then(() => dispatch(registerAbastecimentos(payload)));
+    .then((data) => {
+      dispatch(registerAbastecimentos(payload));
+      return data;
+    });
 }
 
 

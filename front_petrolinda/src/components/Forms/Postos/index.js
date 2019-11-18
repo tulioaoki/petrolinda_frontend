@@ -14,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';// import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import { CustomInput } from '../../CustomInput';
-import { handleRegisterStation } from '../../../actions/Stations';
+import { handleRegisterStation, handleGetStations } from '../../../actions/Stations';
 import { getAddressDataRequest } from '../../../utils/requests';
 
 const styles = (theme) => ({
@@ -135,10 +135,9 @@ export class RegisterStationDialog extends Component {
         rua,
         numero,
       })).then((data) => {
-        console.log(data);
         if (data.data.message === 'posto criado') {
           enqueueSnackbar('Posto regristrado com Sucesso.',
-            { variant: 'success', autoHideDuration: 3000 });
+            { variant: 'success', autoHideDuration: 3000 }, dispatch(handleGetStations()));
         } else {
           enqueueSnackbar('Houve um erro no servidor.',
             { variant: 'error', autoHideDuration: 3000 });
@@ -288,7 +287,7 @@ const mapStateToProps = ({ REDUCER_BANDEIRAS }) => ({
 
 RegisterStationDialog.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.object.isRequired,
+   dispatch: PropTypes.func.isRequired,
   bandeiras: PropTypes.array,
   enqueueSnackbar: PropTypes.func.isRequired,
 };

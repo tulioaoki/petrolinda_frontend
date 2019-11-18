@@ -67,7 +67,7 @@ export class ScreenAppBar extends PureComponent {
               <Typography
                 variant="inherit"
                 className={classes.containerLogo}
-                onClick={() => (history.push('/home/'))}
+                onClick={() => (history.push('/dashboard'))}
                 style={{ cursor: 'pointer' }}
               >
                 <img src={logo} alt="petrolinda" style={{ maxWidth: 200 }} />

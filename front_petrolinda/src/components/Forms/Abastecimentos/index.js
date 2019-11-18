@@ -15,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add';// import PropTypes from 'prop-type
 import { withSnackbar } from 'notistack';
 import { CustomInput } from '../../CustomInput';
 import { getTanqueByPostoRequest } from '../../../utils/requests';
-import { handleRegisterAbastecimento } from '../../../actions/Abastecimentos';
+import { handleRegisterAbastecimento, handleGetAbastecimentos } from '../../../actions/Abastecimentos';
 
 const styles = (theme) => ({
   dialog: {
@@ -89,11 +89,12 @@ export class AbastecimentoStationDialog extends Component {
     const handleSubmit = (e) => {
       e.preventDefault();
       dispatch(handleRegisterAbastecimento({
-        placa, valorLitro, litrosAbastecidos, idTanque,
+        placa, valorLitro, litrosAbastecidos, idTanque, idPosto,
       })).then((data) => {
-        if (data.payload.message) {
+        console.log(data, "DATA")
+        if (data.data.message) {
           enqueueSnackbar('Abastecimento registrado com Sucesso.',
-            { variant: 'success', autoHideDuration: 3000 });
+            { variant: 'success', autoHideDuration: 3000 }, handleGetAbastecimentos());
         } else {
           enqueueSnackbar('Houve um erro no servidor.',
             { variant: 'error', autoHideDuration: 3000 });
@@ -224,7 +225,7 @@ const mapStateToProps = ({ REDUCER_STATIONS }) => ({
 
 AbastecimentoStationDialog.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   postos: PropTypes.array,
   enqueueSnackbar: PropTypes.func.isRequired,
 };
