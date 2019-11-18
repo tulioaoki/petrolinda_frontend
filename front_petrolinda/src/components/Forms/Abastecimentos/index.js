@@ -91,7 +91,6 @@ export class AbastecimentoStationDialog extends Component {
       dispatch(handleRegisterAbastecimento({
         placa, valorLitro, litrosAbastecidos, idTanque, idPosto,
       })).then((data) => {
-        console.log(data, "DATA")
         if (data.data.message) {
           enqueueSnackbar('Abastecimento registrado com Sucesso.',
             { variant: 'success', autoHideDuration: 3000 }, handleGetAbastecimentos());

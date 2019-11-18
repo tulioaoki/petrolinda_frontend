@@ -38,9 +38,10 @@ const styles = () => ({
 
 class HomePage extends PureComponent {
   render() {
-    const { classes, reducerUser } = this.props;
+    const { classes, reducerUser, history } = this.props;
     if (!reducerUser.token) {
       // If not logged, goes back to login screen
+      history.push('/login');
     }
 
     return (
@@ -61,6 +62,7 @@ const mapStateToProps = ({ REDUCER_USER }) => ({
 
 HomePage.propTypes = {
   reducerUser: PropTypes.object.isRequired,
+  history: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(HomePage)));
