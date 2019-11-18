@@ -86,6 +86,9 @@ export class AbastecimentoStationDialog extends Component {
       const { value } = e.target;
       this.setState((prevState) => ({ ...prevState, idTanque: value }));
     };
+    const handleSubmitted = () => {
+      dispatch(handleGetAbastecimentos());
+    };
     const handleSubmit = (e) => {
       e.preventDefault();
       dispatch(handleRegisterAbastecimento({
@@ -93,7 +96,7 @@ export class AbastecimentoStationDialog extends Component {
       })).then((data) => {
         if (data.data.message) {
           enqueueSnackbar('Abastecimento registrado com Sucesso.',
-            { variant: 'success', autoHideDuration: 3000 }, handleGetAbastecimentos());
+            { variant: 'success', autoHideDuration: 3000 }, handleSubmitted());
         } else {
           enqueueSnackbar('Houve um erro no servidor.',
             { variant: 'error', autoHideDuration: 3000 });

@@ -29,5 +29,6 @@ function getAbastecimentos(payload) {
 export function handleGetAbastecimentos(payload) {
   return (dispatch) => getAbastecimentosRequest(payload).then(({ data }) => {
     dispatch(getAbastecimentos(data));
+    return data;
   });
 }
