@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3333/';
+const BASE_URL = 'http://35.203.75.224:3333/';
 
 export default function authenticateUserRequest({ login, pass }) {
   const body = {
